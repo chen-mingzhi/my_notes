@@ -1,0 +1,10 @@
+/home/fishloong/MyCode/数据转换/VOCdevkit/VOC2007/JPEGImages/five.9c17d574-b8ff-11ed-bfcf-39066b19220d.jpg
+/home/fishloong/MyCode/数据转换/VOCdevkit/VOC2007/JPEGImages/fuckQ.be37ea68-b8ff-11ed-bfcf-39066b19220d.jpg
+/home/fishloong/MyCode/数据转换/VOCdevkit/VOC2007/JPEGImages/five.a233c3b4-b8ff-11ed-bfcf-39066b19220d.jpg
+/home/fishloong/MyCode/数据转换/VOCdevkit/VOC2007/JPEGImages/fuckQ.b81d3098-b8ff-11ed-bfcf-39066b19220d.jpg
+/home/fishloong/MyCode/数据转换/VOCdevkit/VOC2007/JPEGImages/five.a5dc81ea-b8ff-11ed-bfcf-39066b19220d.jpg
+/home/fishloong/MyCode/数据转换/VOCdevkit/VOC2007/JPEGImages/three.b0d0af5f-b8ff-11ed-bfcf-39066b19220d.jpg
+/home/fishloong/MyCode/数据转换/VOCdevkit/VOC2007/JPEGImages/fuckQ.b6e4c380-b8ff-11ed-bfcf-39066b19220d.jpg
+/home/fishloong/MyCode/数据转换/VOCdevkit/VOC2007/JPEGImages/fuckQ.c1df2b05-b8ff-11ed-bfcf-39066b19220d.jpg
+/home/fishloong/MyCode/数据转换/VOCdevkit/VOC2007/JPEGImages/fuckQ.b9562691-b8ff-11ed-bfcf-39066b19220d.jpg
+/home/fishloong/MyCode/数据转换/VOCdevkit/VOC2007/JPEGImages/five.a0fb0cfa-b8ff-11ed-bfcf-39066b19220d.jpg

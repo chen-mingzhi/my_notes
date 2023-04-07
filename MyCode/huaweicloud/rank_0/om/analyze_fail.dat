@@ -1,0 +1,93 @@
+# [No.1] construct_wrapper.3
+# In file /tmp/ipykernel_7861/1346855391.py(9)/
+funcgraph fg_3(
+        %para1 : Tensor(F32)[13]    # x
+        , %para2 : Tensor(F32)[148, 13]    # X_train
+    ) {
+
+#------------------------> 0
+    %1 = FuncGraph::fg_4(%para1, %para2)    #(Tensor(F32)[13], Tensor(F32)[148, 13])    # fg_4=construct.4 #scope: Default
+      # #[CNode]6
+    Primitive::Return{prim_type=1}(%1)    #(Undefined) #scope: Default
+      # In file /tmp/ipykernel_7861/1346855391.py(9)/#[CNode]7
+}
+# order:
+#   1: construct_wrapper.3:[CNode]6{[0]: ValueNode<FuncGraph> construct.4, [1]: x, [2]: X_train}
+#   2: construct_wrapper.3:[CNode]7{[0]: ValueNode<Primitive> Return, [1]: [CNode]6}
+
+
+# [No.2] construct.4
+# In file /tmp/ipykernel_7861/1346855391.py(9)/
+funcgraph fg_4(
+        %para3 : Tensor(F32)[13]    # x
+        , %para4 : Tensor(F32)[148, 13]    # X_train
+    ) {
+    %1 : Tuple[I64*2] = DoSignaturePrimitive::S-Prim-MakeTuple{prim_type=1}(I64(128), I64(1))    #(I64, I64) #scope: Default
+      # In file /tmp/ipykernel_7861/1346855391.py(11)/#[CNode]8
+    %2 : Tensor(F32)[128, 13] = DoSignaturePrimitive::S-Prim-Tile{prim_type=1}[input_names=["x", "multiples"], output_names=["output"]](%para3, %1)    #(Tensor(F32)[13], Tuple[I64*2]) #scope: Default
+      # In file /tmp/ipykernel_7861/1346855391.py(11)/#x_tile
+
+#------------------------> 1
+    %3 = DoSignaturePrimitive::S-Prim-sub{prim_type=1}(%2, %para4)    #(Tensor(F32)[128, 13], Tensor(F32)[148, 13]) #scope: Default
+      # In file /tmp/ipykernel_7861/1346855391.py(12)/#[CNode]9
+    %4 = DoSignaturePrimitive::S-Prim-Square{prim_type=1}[input_names=["input_x"], output_names=["output"]](%3)    #(Undefined) #scope: Default
+      # In file /tmp/ipykernel_7861/1346855391.py(12)/#square_diff
+    %5 = DoSignaturePrimitive::S-Prim-ReduceSum{prim_type=1}[keep_dims=Bool(0), input_names=["input_x", "axis"], output_names=["y"]](%4, I64(1))    #(Undefined, Undefined) #scope: Default
+      # In file /tmp/ipykernel_7861/1346855391.py(13)/#square_dist
+    %6 = DoSignaturePrimitive::S-Prim-Sqrt{prim_type=1}[input_names=["x"], output_names=["output"]](%5)    #(Undefined) #scope: Default
+      # In file /tmp/ipykernel_7861/1346855391.py(14)/#dist
+    %7 = DoSignaturePrimitive::S-Prim-negative{prim_type=1}(%6)    #(Undefined) #scope: Default
+      # In file /tmp/ipykernel_7861/1346855391.py(16)/#[CNode]10
+    %8 = DoSignaturePrimitive::S-Prim-TopK{prim_type=1}[sorted=Bool(1), input_names=["input", "k"], output_names=["values", "indices"]](%7, I64(5))    #(Undefined, Undefined) #scope: Default
+      # In file /tmp/ipykernel_7861/1346855391.py(16)/#[CNode]11
+    %9 = DoSignaturePrimitive::S-Prim-getitem{prim_type=1}(%8, I64(0))    #(Undefined, Undefined) #scope: Default
+      # In file /tmp/ipykernel_7861/1346855391.py(16)/#values
+    %10 = Primitive::stop_gradient{prim_type=1}(%9)    #(Undefined) #scope: Default
+      # In file /tmp/ipykernel_7861/1346855391.py(9)/#[CNode]12
+    %11 = DoSignaturePrimitive::S-Prim-getitem{prim_type=1}(%8, I64(1))    #(Undefined, Undefined) #scope: Default
+      # In file /tmp/ipykernel_7861/1346855391.py(16)/#indices
+    %12 = Primitive::Depend{prim_type=1}[side_effect_propagate=I64(1)](%11, %10)    #(Undefined, Undefined) #scope: Default
+      # In file /tmp/ipykernel_7861/1346855391.py(9)/#[CNode]13
+    Primitive::Return{prim_type=1}(%12)    #(Undefined) #scope: Default
+      # In file /tmp/ipykernel_7861/1346855391.py(9)/#[CNode]14
+}
+# order:
+#   1: construct.4:[CNode]8{[0]: ValueNode<DoSignaturePrimitive> S-Prim-MakeTuple, [1]: ValueNode<Int64Imm> 128, [2]: ValueNode<Int64Imm> 1}
+#   2: construct.4:x_tile{[0]: ValueNode<DoSignaturePrimitive> S-Prim-Tile, [1]: x, [2]: [CNode]8}
+#   3: construct.4:[CNode]9{[0]: ValueNode<DoSignaturePrimitive> S-Prim-sub, [1]: x_tile, [2]: X_train}
+#   4: construct.4:square_diff{[0]: ValueNode<DoSignaturePrimitive> S-Prim-Square, [1]: [CNode]9}
+#   5: construct.4:square_dist{[0]: ValueNode<DoSignaturePrimitive> S-Prim-ReduceSum, [1]: square_diff, [2]: ValueNode<Int64Imm> 1}
+#   6: construct.4:dist{[0]: ValueNode<DoSignaturePrimitive> S-Prim-Sqrt, [1]: square_dist}
+#   7: construct.4:[CNode]10{[0]: ValueNode<DoSignaturePrimitive> S-Prim-negative, [1]: dist}
+#   8: construct.4:[CNode]11{[0]: ValueNode<DoSignaturePrimitive> S-Prim-TopK, [1]: [CNode]10, [2]: ValueNode<Int64Imm> 5}
+#   9: construct.4:values{[0]: ValueNode<DoSignaturePrimitive> S-Prim-getitem, [1]: [CNode]11, [2]: ValueNode<Int64Imm> 0}
+#  10: construct.4:indices{[0]: ValueNode<DoSignaturePrimitive> S-Prim-getitem, [1]: [CNode]11, [2]: ValueNode<Int64Imm> 1}
+#  11: construct.4:[CNode]14{[0]: ValueNode<Primitive> Return, [1]: [CNode]13}
+
+
+# [No.3] _sub_tensor.5
+# In file /home/fishloong/anaconda3/envs/MindSpore/lib/python3.7/site-packages/mindspore/ops/composite/multitype_ops/sub_impl.py(37)/def _sub_tensor(x, y):/
+funcgraph fg_5(
+        %para5 : Tensor(F32)[128, 13]    # x
+        , %para6 : Tensor(F32)[148, 13]    # y
+    ) {
+    %1 : ExternalType = Primitive::resolve{prim_type=1}(NameSpace::SymbolStr, F)    #(ExternalType, ExternalType) #scope: Default
+      # In file /home/fishloong/anaconda3/envs/MindSpore/lib/python3.7/site-packages/mindspore/ops/composite/multitype_ops/sub_impl.py(39)/    return F.tensor_sub(x, y)/#[CNode]15
+    %2 : Func = Primitive::getattr{prim_type=1}(%1, "tensor_sub")    #(ExternalType, String) #scope: Default
+      # In file /home/fishloong/anaconda3/envs/MindSpore/lib/python3.7/site-packages/mindspore/ops/composite/multitype_ops/sub_impl.py(39)/    return F.tensor_sub(x, y)/#[CNode]16
+
+#------------------------> 2
+    %3 = %2(%para5, %para6)    #(Tensor(F32)[128, 13], Tensor(F32)[148, 13]) #scope: Default
+      # In file /home/fishloong/anaconda3/envs/MindSpore/lib/python3.7/site-packages/mindspore/ops/composite/multitype_ops/sub_impl.py(39)/    return F.tensor_sub(x, y)/#[CNode]17
+    Primitive::Return{prim_type=1}(%3)    #(Undefined) #scope: Default
+      # In file /home/fishloong/anaconda3/envs/MindSpore/lib/python3.7/site-packages/mindspore/ops/composite/multitype_ops/sub_impl.py(39)/    return F.tensor_sub(x, y)/#[CNode]18
+}
+# order:
+#   1: _sub_tensor.19:[CNode]20{[0]: ValueNode<Primitive> resolve, [1]: ValueNode<NameSpace> CommonOPS, [2]: ValueNode<Symbol> MakeTuple}
+#   2: _sub_tensor.19:[CNode]21{[0]: [CNode]20, [1]: x, [2]: y}
+#   3: _sub_tensor.5:[CNode]17{[0]: [CNode]16, [1]: x, [2]: y}
+#   4: _sub_tensor.5:[CNode]18{[0]: ValueNode<Primitive> Return, [1]: [CNode]17}
+
+
+#===============================================================================
+# num of function graphs in stack: 3/5 (Ignored 2 internal frames).
